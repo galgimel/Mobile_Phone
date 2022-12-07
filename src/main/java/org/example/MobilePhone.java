@@ -1,3 +1,5 @@
+package org.example;
+
 public class MobilePhone {
     int id;
     String brand;

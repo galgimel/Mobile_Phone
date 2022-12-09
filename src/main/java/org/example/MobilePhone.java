@@ -65,11 +65,11 @@ public class MobilePhone {
     @Override
     public String toString() {
         return "Mobile_phone{" +
-                "id=" + id +
-                ", brand='" + brand + '\'' +
-                ", model='" + model + '\'' +
-                ", performance=" + performance +
-                ", price=" + price +
-                '}';
+            "id=" + id +
+            ", brand='" + brand + '\'' +
+            ", model='" + model + '\'' +
+            ", performance=" + performance +
+            ", price=" + price +
+            '}';
     }
 }

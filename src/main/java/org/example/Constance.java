@@ -1,6 +1,8 @@
 package org.example;
 
 public class Constance {
+    public static final String WAY_PROPERTY = "src/main/resources/my.properties";
+    public static final String WAY_SQL = "src/main/resources/init.sql";
     public static final String END_CHAR = "*";
     public static final String READY = "Готово!";
     public static final String DONE = "Работа завершена. Итог:";
@@ -15,6 +17,6 @@ public class Constance {
         "1 - Вывод всех телефонов выше определенной производительности. \n" +
         "2 - Вывод всех телефонов выше определенной цены. \n" +
         "3 - Удаление телефона из базы по названию модели и названию компании. \n" +
-        "4 - Добавление нового телефона. ";
+        "4 - Добавление нового телефона.";
 
 }

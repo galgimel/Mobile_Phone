@@ -2,6 +2,8 @@ package org.example;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
@@ -12,20 +14,25 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
 
-        FileInputStream in = new FileInputStream("src/main/resources/my.properties");
+        FileInputStream in = new FileInputStream(WAY_PROPERTY);
         Properties properties = new Properties();
         properties.load(in);
         in.close();
         ConnectionFactory connectionFactory = new ConnectionFactory(properties);
 
+        List<String> createBaseArray = Files.readAllLines(Path.of(WAY_SQL));
+        StringBuilder createBaseSB = new StringBuilder();
+        for (String string : createBaseArray) {
+            createBaseSB.append(string);
+        }
+
         MobilePhoneDAO dao = new MobilePhoneDAO(connectionFactory);
-        dao.createBase();
+        dao.createBase(createBaseSB.toString());
 
         System.out.println(MENU);
         System.out.println(dao.findAll());
-
-        while (!scanner.nextLine().equals(END_CHAR)) {
-            String query = scanner.next();
+        String query = scanner.nextLine();
+        while (!query.equals(END_CHAR)) {
             switch (query) {
                 case "1":
                     System.out.println(MIN_PERFORMANCE);
@@ -47,20 +54,20 @@ public class Main {
                     break;
                 case "3":
                     System.out.println(CASE_3);
-                            String array3 = scanner.next();
-                            List<String> options3 = List.of(array3.split(","));
-                            if (options3.size() < 3){
-                                dao.delete(options3.get(0), options3.get(1));
-                                System.out.println(READY + "\n" + dao.findAll());
-                            } else {
-                                System.out.println(ERR + "\n" + MENU);
-                            }
-                        break;
+                    String array3 = scanner.next();
+                    List<String> options3 = List.of(array3.split(","));
+                    if (options3.size() == 2){
+                        dao.delete(options3.get(0), options3.get(1));
+                        System.out.println(READY + "\n" + dao.findAll());
+                    } else {
+                        System.out.println(ERR + "\n" + MENU);
+                    }
+                    break;
                 case "4":
                     System.out.println(CASE_4);
                     String array4 = scanner.next();
                     List<String> options4 = List.of(array4.split(","));
-                    if (options4.size() < 5){
+                    if (options4.size() == 4){
                         MobilePhone mobilePhone = new MobilePhone(
                             options4.get(0),
                             options4.get(1),
@@ -76,6 +83,7 @@ public class Main {
                     System.out.println(DEFAULT + "\n" + MENU);
                     break;
             }
+            query = scanner.next();
         }
         System.out.println(DONE + "\n" + dao.findAll());
     }

@@ -43,15 +43,12 @@ public class MobilePhoneDAO {
         }
     }
 
-    public void createBase() {
+    public void createBase(String createBase) {
         Connection connection = connectionFactory.createConnection();
-
         try {
-            PreparedStatement statement = connection.prepareStatement(
-                Files.readAllLines(Path.of("src/main/resources/init.sql")).toString()
-            );
+            PreparedStatement statement = connection.prepareStatement(createBase);
             statement.execute();
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);

@@ -26,11 +26,12 @@ public class Main {
             createBaseSB.append(string);
         }
 
-        MobilePhoneDAO dao = new MobilePhoneDAO(connectionFactory);
-        dao.createBase(createBaseSB.toString());
+        MobilePhoneDAO mpDAO = new MobilePhoneDAO(connectionFactory);
+        PhoneUserDAO puDAO = new PhoneUserDAO(connectionFactory);
+        mpDAO.createBase(createBaseSB.toString());
 
         System.out.println(MENU);
-        System.out.println(dao.findAll());
+        System.out.println(mpDAO.findAll());
         String query = scanner.nextLine();
         while (!query.equals(END_CHAR)) {
             switch (query) {
@@ -38,7 +39,7 @@ public class Main {
                     System.out.println(MIN_PERFORMANCE);
                     int number1 = scanner.nextInt();
                     if (number1 < 1 || number1 > 20) {
-                        System.out.println(READY + "\n" + dao.findByPerformance(number1));
+                        System.out.println(READY + "\n" + mpDAO.findByPerformance(number1));
                     } else {
                         System.out.println(ERR + "\n" + MENU);
                     }
@@ -47,7 +48,7 @@ public class Main {
                     System.out.println(MIN_PRICE);
                     int number2 = scanner.nextInt();
                     if (number2 < 0) {
-                        System.out.println(READY + "\n" + dao.findByPrice(number2));
+                        System.out.println(READY + "\n" + mpDAO.findByPrice(number2));
                     } else {
                         System.out.println(ERR + "\n" + MENU);
                     }
@@ -57,8 +58,8 @@ public class Main {
                     String array3 = scanner.next();
                     List<String> options3 = List.of(array3.split(","));
                     if (options3.size() == 2){
-                        dao.delete(options3.get(0), options3.get(1));
-                        System.out.println(READY + "\n" + dao.findAll());
+                        mpDAO.delete(options3.get(0), options3.get(1));
+                        System.out.println(READY + "\n" + mpDAO.findAll());
                     } else {
                         System.out.println(ERR + "\n" + MENU);
                     }
@@ -73,10 +74,26 @@ public class Main {
                             options4.get(1),
                             Integer.parseInt(options4.get(2)),
                             Integer.parseInt(options4.get(3)));
-                        dao.save(mobilePhone);
-                        System.out.println(READY + "\n" + dao.findAll());
+                        mpDAO.save(mobilePhone);
+                        System.out.println(READY + "\n" + mpDAO.findAll());
                     } else {
                         System.out.println(ERR + "\n" + MENU);
+                    }
+                    break;
+                case "5" :
+                    System.out.println(CASE_5);
+                    String brand = scanner.next();
+                    try {
+                        System.out.println(READY + "\n" + puDAO.findBrandUsers(brand));
+                    } catch (Exception e) {
+                        System.out.println(ERR + "\n" + MENU);
+                    }
+                    break;
+                case "6" :
+                    try {
+                        System.out.println(READY + "\n" + puDAO.findNoneUsers());
+                    } catch (Exception e) {
+                        System.out.println(CASE_6_ERR + "\n" + MENU);
                     }
                     break;
                 default:
@@ -85,6 +102,6 @@ public class Main {
             }
             query = scanner.next();
         }
-        System.out.println(DONE + "\n" + dao.findAll());
+        System.out.println(DONE + "\n" + mpDAO.findAll());
     }
 }

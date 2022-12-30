@@ -1,12 +1,12 @@
 package org.example;
 
 public class PhoneUser {
-    int user_id;
+    int id;
     String name;
     int mobile_phone;
 
-    public PhoneUser(int user_id, String name, int mobile_phone) {
-        this.user_id = user_id;
+    public PhoneUser(int id, String name, int mobile_phone) {
+        this.id = id;
         this.name = name;
         this.mobile_phone = mobile_phone;
     }
@@ -16,12 +16,12 @@ public class PhoneUser {
         this.mobile_phone = mobile_phone;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getId() {
+        return id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,7 +43,7 @@ public class PhoneUser {
     @Override
     public String toString() {
         return "PhoneUser{" +
-            "user_id=" + user_id +
+            "id=" + id +
             ", name='" + name + '\'' +
             ", mobile_phone=" + mobile_phone +
             '}';

@@ -13,21 +13,22 @@ public class PhoneUserDAO {
     public PhoneUserDAO(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
+
     public List<PhoneUser> findAll() {
         Connection connection = connectionFactory.createConnection();
         List<PhoneUser> phoneUsers = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("SELECT * FROM phone_user;")
+                "SELECT * FROM phone_user;"
             );
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 phoneUsers.add(
                     new PhoneUser(
-                        resultSet.getInt("user_id"),
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getInt("mobile_phone")
+                        resultSet.getInt("mobile_phone_id")
                     )
                 );
             }
@@ -38,35 +39,56 @@ public class PhoneUserDAO {
         }
         return phoneUsers;
     }
-    public List<PhoneUser> findBrandUsers(String brand) {
+
+    public String findBrandUsers(String brand) {
         Connection connection = connectionFactory.createConnection();
         List<PhoneUser> phoneUsers = new ArrayList<>();
+        List<MobilePhone> mobilePhones = new ArrayList<>();
+        StringBuilder result = new StringBuilder();
+        int count = -1;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("SELECT * FROM phone_user\n" +
-                    "WHERE mobile_phone IN (\n" +
-                    "    SELECT id\n" +
-                    "    FROM mobile_phones\n" +
-                    "    WHERE brand = '%s'\n" +
-                    "    );", brand)
+                String.format("""
+                    SELECT pu.id, name, mobile_phone_id, mp.id, brand, model,
+                           performance, price
+                    FROM mobile_phone  mp INNER JOIN phone_user pu
+                    ON mp.id = pu.mobile_phone_id
+                    WHERE mobile_phone_id IN (
+                        SELECT id
+                        FROM mobile_phone
+                        WHERE brand = '%s'
+                    );""", brand)
             );
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
+                count++;
                 phoneUsers.add(
                     new PhoneUser(
-                        resultSet.getInt("user_id"),
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getInt("mobile_phone")
+                        resultSet.getInt("mobile_phone_id")
                     )
                 );
+                mobilePhones.add(
+                    new MobilePhone(
+                        resultSet.getInt("id"),
+                        resultSet.getString("brand"),
+                        resultSet.getString("model"),
+                        resultSet.getInt("performance"),
+                        resultSet.getInt("price")
+                    )
+                );
+                result.append(phoneUsers.get(count));
+                result.append(mobilePhones.get(count));
+                result.append("\n");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
         }
-        return phoneUsers;
+        return result.toString();
     }
 
     public List<PhoneUser> findNoneUsers() {
@@ -74,17 +96,16 @@ public class PhoneUserDAO {
         List<PhoneUser> phoneUsers = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("SELECT * FROM phone_user\n" +
-                    "WHERE mobile_phone IS NULL;")
+                "SELECT * FROM phone_user WHERE mobile_phone_id IS NULL;"
             );
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 phoneUsers.add(
                     new PhoneUser(
-                        resultSet.getInt("user_id"),
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getInt("mobile_phone")
+                        resultSet.getInt("mobile_phone_id")
                     )
                 );
             }

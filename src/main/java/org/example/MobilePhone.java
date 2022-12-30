@@ -22,6 +22,11 @@ public class MobilePhone {
         this.price = price;
     }
 
+    public MobilePhone(String brand, String model) {
+        this.brand = brand;
+        this.model = model;
+    }
+
     public int getId() {
         return id;
     }

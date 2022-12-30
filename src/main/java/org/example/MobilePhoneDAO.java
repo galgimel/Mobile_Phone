@@ -57,7 +57,7 @@ public class MobilePhoneDAO {
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("SELECT * FROM mobile_phones;")
+                "SELECT * FROM mobile_phones;"
             );
             ResultSet resultSet = statement.executeQuery();
 

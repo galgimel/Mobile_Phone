@@ -11,6 +11,7 @@ public class Constance {
     public static final String CASE_3 = "Введите бренд и модель телефона через запятую без пробелов.";
     public static final String CASE_4 = "Введите бренд, модель, производительность и цену телефона в одну строку через запятую без пробелов.";
     public static final String CASE_5 = "Введите бренд.";
+    public static final String CASE_5_ERR = "Кажется такого бренда нет :( \n Попробуй еще раз.";
     public static final String CASE_6_ERR = "Ой-ей, кажется что то пошло не так, либо все юзеры приобрели телефон! \n Проверь базу данных :)";
     public static final String DEFAULT = "Введите корректную цифру.";
     public static final String ERR = "Данные введены не корректно. Попробуйте снова.";

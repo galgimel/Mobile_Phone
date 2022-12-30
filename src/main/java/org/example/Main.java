@@ -29,7 +29,6 @@ public class Main {
         MobilePhoneDAO mpDAO = new MobilePhoneDAO(connectionFactory);
         PhoneUserDAO puDAO = new PhoneUserDAO(connectionFactory);
         mpDAO.createBase(createBaseSB.toString());
-        Cases cases = new Cases();
 
         System.out.println(MENU);
         System.out.println(mpDAO.findAll());
@@ -37,22 +36,22 @@ public class Main {
         while (!query.equals(END_CHAR)) {
             switch (query) {
                 case "1":
-                    cases.case1(mpDAO);
+                    outputPerformance(mpDAO);
                     break;
                 case "2":
-                    cases.case2(mpDAO);
+                    outputPrice(mpDAO);
                     break;
                 case "3":
-                    cases.case3(mpDAO);
+                    deleteByBrandAndModel(mpDAO);
                     break;
                 case "4":
-                    cases.case4(mpDAO);
+                    addPhone(mpDAO);
                     break;
                 case "5":
-                    cases.case5(puDAO);
+                    outputBrandUsers(puDAO);
                     break;
                 case "6":
-                    cases.case6(puDAO);
+                    outputNonePhoneUsers(puDAO);
                     break;
                 default:
                     System.out.println(DEFAULT + "\n" + MENU);
@@ -61,5 +60,74 @@ public class Main {
             query = scanner.next();
         }
         System.out.println(DONE + "\n" + mpDAO.findAll());
+    }
+
+    static Scanner scanner = new Scanner(System.in);
+
+    private static void outputPerformance(MobilePhoneDAO mpDAO) {
+        System.out.println(MIN_PERFORMANCE);
+        int number1 = scanner.nextInt();
+        if (number1 > 1 && number1 < 20) {
+            System.out.println(READY + "\n" + mpDAO.findByPerformance(number1));
+        } else {
+            System.out.println(ERR + "\n" + MENU);
+        }
+    }
+
+    private static void outputPrice(MobilePhoneDAO mpDAO) {
+        System.out.println(MIN_PRICE);
+        int number2 = scanner.nextInt();
+        if (number2 > 0) {
+            System.out.println(READY + "\n" + mpDAO.findByPrice(number2));
+        } else {
+            System.out.println(ERR + "\n" + MENU);
+        }
+    }
+
+    private static void deleteByBrandAndModel(MobilePhoneDAO mpDAO) {
+        System.out.println(CASE_3);
+        String array3 = scanner.next();
+        List<String> options3 = List.of(array3.split(","));
+        if (options3.size() == 2) {
+            mpDAO.delete(options3.get(0), options3.get(1));
+            System.out.println(READY + "\n" + mpDAO.findAll());
+        } else {
+            System.out.println(ERR + "\n" + MENU);
+        }
+    }
+
+    private static void addPhone(MobilePhoneDAO mpDAO) {
+        System.out.println(CASE_4);
+        String array4 = scanner.next();
+        List<String> options4 = List.of(array4.split(","));
+        if (options4.size() == 4) {
+            MobilePhone mobilePhone = new MobilePhone(
+                options4.get(0),
+                options4.get(1),
+                Integer.parseInt(options4.get(2)),
+                Integer.parseInt(options4.get(3)));
+            mpDAO.save(mobilePhone);
+            System.out.println(READY + "\n" + mpDAO.findAll());
+        } else {
+            System.out.println(ERR + "\n" + MENU);
+        }
+    }
+
+    private static void outputBrandUsers(PhoneUserDAO puDAO) {
+        System.out.println(CASE_5);
+        String brand = scanner.next();
+        try {
+            System.out.println(READY + "\n" + puDAO.findBrandUsers(brand));
+        } catch (Exception e) {
+            System.out.println(ERR + "\n" + MENU);
+        }
+    }
+
+    private static void outputNonePhoneUsers(PhoneUserDAO puDAO) {
+        try {
+            System.out.println(READY + "\n" + puDAO.findNoneUsers());
+        } catch (Exception e) {
+            System.out.println(CASE_6_ERR + "\n" + MENU);
+        }
     }
 }

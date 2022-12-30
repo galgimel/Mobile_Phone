@@ -40,80 +40,42 @@ public class PhoneUserDAO {
         return phoneUsers;
     }
 
-    public String findBrandUsers(String brand) {
+    public int findBrandUsers(String brand) {
         Connection connection = connectionFactory.createConnection();
-        List<PhoneUser> phoneUsers = new ArrayList<>();
-        List<MobilePhone> mobilePhones = new ArrayList<>();
-        StringBuilder result = new StringBuilder();
-        int count = -1;
+        int count = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("""
-                    SELECT pu.id, name, mobile_phone_id, mp.id, brand, model,
-                           performance, price
-                    FROM mobile_phone  mp INNER JOIN phone_user pu
-                    ON mp.id = pu.mobile_phone_id
-                    WHERE mobile_phone_id IN (
-                        SELECT id
-                        FROM mobile_phone
-                        WHERE brand = '%s'
-                    );""", brand)
+                String.format("SELECT COUNT(pu.name) AS users\n" +
+                    "FROM mobile_phone  mp INNER JOIN phone_user pu\n" +
+                    "ON mp.id = pu.mobile_phone_id AND mp.brand = '%s';", brand)
             );
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()) {
-                count++;
-                phoneUsers.add(
-                    new PhoneUser(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("mobile_phone_id")
-                    )
-                );
-                mobilePhones.add(
-                    new MobilePhone(
-                        resultSet.getInt("id"),
-                        resultSet.getString("brand"),
-                        resultSet.getString("model"),
-                        resultSet.getInt("performance"),
-                        resultSet.getInt("price")
-                    )
-                );
-                result.append(phoneUsers.get(count));
-                result.append(mobilePhones.get(count));
-                result.append("\n");
-            }
+            count = resultSet.getInt("users");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
         }
-        return result.toString();
+        return count;
     }
 
-    public List<PhoneUser> findNoneUsers() {
+    public int findNoneUsers() {
         Connection connection = connectionFactory.createConnection();
-        List<PhoneUser> phoneUsers = new ArrayList<>();
+        int count = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM phone_user WHERE mobile_phone_id IS NULL;"
+                "SELECT COUNT(phone_user.name) FROM phone_user\n" +
+                    "WHERE mobile_phone_id IS NULL;"
             );
             ResultSet resultSet = statement.executeQuery();
+            count = resultSet.getInt("count");
 
-            while (resultSet.next()) {
-                phoneUsers.add(
-                    new PhoneUser(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("mobile_phone_id")
-                    )
-                );
-            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
         }
-        return phoneUsers;
+        return count;
     }
 }

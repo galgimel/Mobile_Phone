@@ -50,7 +50,7 @@ public class PhoneUserDAO {
                     "ON mp.id = pu.mobile_phone_id AND mp.brand = '%s';", brand)
             );
             ResultSet resultSet = statement.executeQuery();
-
+            resultSet.next();
             count = resultSet.getInt("users");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -65,10 +65,11 @@ public class PhoneUserDAO {
         int count = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(
-                "SELECT COUNT(phone_user.name) FROM phone_user\n" +
+                "SELECT COUNT(phone_user.name) AS count FROM phone_user\n" +
                     "WHERE mobile_phone_id IS NULL;"
             );
             ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
             count = resultSet.getInt("count");
 
         } catch (SQLException e) {

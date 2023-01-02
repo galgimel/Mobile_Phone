@@ -4,7 +4,7 @@ public class Constance {
     public static final String WAY_PROPERTY = "src/main/resources/my.properties";
     public static final String WAY_SQL = "src/main/resources/init.sql";
     public static final String END_CHAR = "*";
-    public static final String READY = "Готово!";
+    public static final String READY = "Готово:";
     public static final String DONE = "Работа завершена. Итог:";
     public static final String MIN_PERFORMANCE = "Введите минимальную желаемую производительность.";
     public static final String MIN_PRICE = "Введите минимальную желаемую цену.";

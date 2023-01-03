@@ -1,8 +1,5 @@
 package org.example;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +15,7 @@ public class MobilePhoneDAO {
         Connection connection = connectionFactory.createConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("INSERT INTO mobile_phones (brand, model, performance, price) VALUES ('%s', '%s', %d, %d);",
+                String.format("INSERT INTO mobile_phone (brand, model, performance, price) VALUES ('%s', '%s', %d, %d);",
                     mobilePhone.brand, mobilePhone.model, mobilePhone.performance, mobilePhone.price)
             );
             statement.execute();
@@ -33,7 +30,7 @@ public class MobilePhoneDAO {
         Connection connection = connectionFactory.createConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("DELETE FROM mobile_phones WHERE brand = '%s' AND model = '%s';", brand, model)
+                String.format("DELETE FROM mobile_phone WHERE brand = '%s' AND model = '%s';", brand, model)
             );
             statement.execute();
         } catch (SQLException e) {
@@ -60,7 +57,7 @@ public class MobilePhoneDAO {
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("SELECT * FROM mobile_phones;")
+                "SELECT * FROM mobile_phone;"
             );
             ResultSet resultSet = statement.executeQuery();
 
@@ -88,7 +85,7 @@ public class MobilePhoneDAO {
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("SELECT * FROM mobile_phones WHERE price > %d;", price)
+                String.format("SELECT * FROM mobile_phone WHERE price > %d;", price)
             );
             ResultSet resultSet = statement.executeQuery();
 
@@ -116,7 +113,7 @@ public class MobilePhoneDAO {
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
-                String.format("SELECT * FROM mobile_phones WHERE performance > %d;", performance)
+                String.format("SELECT * FROM mobile_phone WHERE performance > %d;", performance)
             );
             ResultSet resultSet = statement.executeQuery();
 
@@ -137,5 +134,25 @@ public class MobilePhoneDAO {
             connectionFactory.closeConnection(connection);
         }
         return mobilePhone;
+    }
+
+    public int findIDByBrandAndModel(String brand, String model) {
+        Connection connection = connectionFactory.createConnection();
+        int id = 0;
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                String.format("SELECT id\n" +
+                    "FROM mobile_phone\n" +
+                    "WHERE brand = '%s' AND model = '%s';", brand, model)
+            );
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            id = resultSet.getInt("id");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            connectionFactory.closeConnection(connection);
+        }
+        return id;
     }
 }

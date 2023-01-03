@@ -39,6 +39,21 @@ public class PhoneUserDAO {
         }
         return phoneUsers;
     }
+    public void setMobilePhoneIDNull(int id){
+        Connection connection = connectionFactory.createConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+              String.format("UPDATE phone_user\n" +
+                  "SET mobile_phone_id = NULL\n" +
+                  "WHERE mobile_phone_id = '%d';", id)
+            );
+            statement.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            connectionFactory.closeConnection(connection);
+        }
+    }
 
     public int findBrandUsers(String brand) {
         Connection connection = connectionFactory.createConnection();

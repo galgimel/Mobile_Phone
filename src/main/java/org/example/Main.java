@@ -34,7 +34,7 @@ public class Main {
                     outputPrice(mpDAO);
                     break;
                 case "3":
-                    deleteByBrandAndModel(mpDAO);
+                    deleteByBrandAndModel(mpDAO, puDAO);
                     break;
                 case "4":
                     addPhone(mpDAO);
@@ -55,12 +55,14 @@ public class Main {
     }
 
     static Scanner scanner = new Scanner(System.in);
+
     private static String createDataBase() {
         List<String> createBaseArray = null;
         try {
             createBaseArray = Files.readAllLines(Path.of(WAY_SQL));
         } catch (IOException e) {
-            System.out.println("Проблема! Проверь файл создания базы SQL.");;
+            System.out.println("Проблема! Проверь файл создания базы SQL.");
+            ;
         }
         StringBuilder createBaseSB = new StringBuilder();
         for (String string : createBaseArray) {
@@ -68,18 +70,20 @@ public class Main {
         }
         return createBaseSB.toString();
     }
+
     private static void outputPerformance(MobilePhoneDAO mpDAO) {
         System.out.println(MIN_PERFORMANCE);
         int number1 = scanner.nextInt();
         if (number1 > 1 && number1 < 20) {
             System.out.println(
                 READY + "\n" +
-                mpDAO.findByPerformance(number1) + "\n" +
-                MENU);
+                    mpDAO.findByPerformance(number1) + "\n" +
+                    MENU);
         } else {
             System.out.println(ERR + "\n" + MENU);
         }
     }
+
     private static void outputPrice(MobilePhoneDAO mpDAO) {
         System.out.println(MIN_PRICE);
         int number2 = scanner.nextInt();
@@ -89,35 +93,33 @@ public class Main {
             System.out.println(ERR + "\n" + MENU);
         }
     }
-    private static void deleteByBrandAndModel(MobilePhoneDAO mpDAO) {
-        System.out.println(CASE_3 + "\n" + mpDAO.findAll());
-        String array3 = scanner.next();
-        List<String> options3 = List.of(array3.split(","));
-        if (options3.size() == 2) {
-            mpDAO.delete(options3.get(0), options3.get(1));
-            System.out.println(READY + "\n" + mpDAO.findAll() + "\n" + MENU);
-        } else {
-            System.out.println(ERR + "\n" + MENU);
-        }
+
+    private static void deleteByBrandAndModel(MobilePhoneDAO mpDAO, PhoneUserDAO puDAO) {
+        System.out.println(mpDAO.findAll() + "\n" + BRAND);
+        String brand = scanner.next();
+        System.out.println(MODEL);
+        String model = scanner.next();
+        puDAO.setMobilePhoneIDNull(mpDAO.findIDByBrandAndModel(brand, model));
+        mpDAO.delete(brand, model);
+        System.out.println(READY + "\n" + mpDAO.findAll() + "\n" + MENU);
     }
+
     private static void addPhone(MobilePhoneDAO mpDAO) {
-        System.out.println(CASE_4);
-        String array4 = scanner.next();
-        List<String> options4 = List.of(array4.split(","));
-        if (options4.size() == 4) {
-            MobilePhone mobilePhone = new MobilePhone(
-                options4.get(0),
-                options4.get(1),
-                Integer.parseInt(options4.get(2)),
-                Integer.parseInt(options4.get(3)));
-            mpDAO.save(mobilePhone);
-            System.out.println(READY + "\n" + mpDAO.findAll() + "\n" + MENU);
-        } else {
-            System.out.println(ERR + "\n" + MENU);
-        }
+        System.out.println(BRAND);
+        String brand = scanner.next();
+        System.out.println(MODEL);
+        String model = scanner.next();
+        System.out.println(PERFORMANCE);
+        int performance = scanner.nextInt();
+        System.out.println(PRICE);
+        int price = scanner.nextInt();
+        MobilePhone mobilePhone = new MobilePhone(brand, model, performance, price);
+        mpDAO.save(mobilePhone);
+        System.out.println(READY + "\n" + mpDAO.findAll() + "\n" + MENU);
     }
+
     private static void outputBrandUsers(PhoneUserDAO puDAO) {
-        System.out.println(CASE_5);
+        System.out.println(BRAND);
         String brand = scanner.next();
         try {
             System.out.println(READY + "\n" + puDAO.findBrandUsers(brand) + "\n" + MENU);
@@ -125,6 +127,7 @@ public class Main {
             System.out.println(ERR + "\n" + MENU);
         }
     }
+
     private static void outputNonePhoneUsers(PhoneUserDAO puDAO) {
         try {
             System.out.println(READY + "\n" + puDAO.findNoneUsers() + "\n" + MENU);

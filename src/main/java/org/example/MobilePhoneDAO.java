@@ -136,6 +136,37 @@ public class MobilePhoneDAO {
         return mobilePhone;
     }
 
+    public List<MobilePhone> findPhonesByStore(String store) {
+        Connection connection = connectionFactory.createConnection();
+        List<MobilePhone> mobilePhones = new ArrayList<>();
+        try {
+            PreparedStatement statement = connection.prepareStatement(
+                String.format(
+                    "SELECT  brand, model\n" +
+                        "FROM mobile_phone mp INNER JOIN mobile_store ms\n" +
+                        "ON mp.id = ms.mobile_phone_id AND store_id = (\n" +
+                        "        SELECT id\n" +
+                        "        FROM store\n" +
+                        "        WHERE name = '%s'\n" +
+                        "        );", store
+                )
+            );
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                mobilePhones.add(
+                    new MobilePhone(
+                        resultSet.getString("brand"),
+                        resultSet.getString("model")
+                    )
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            connectionFactory.closeConnection(connection);
+        }
+        return mobilePhones;
+    }
     public int findIDByBrandAndModel(String brand, String model) {
         Connection connection = connectionFactory.createConnection();
         int id = 0;

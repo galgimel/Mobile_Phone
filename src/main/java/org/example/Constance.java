@@ -12,6 +12,8 @@ public class Constance {
     public static final String MODEL = "Введите модель.";
     public static final String PERFORMANCE = "Введите производительность";
     public static final String PRICE = "Введите цену.";
+    public static final String STORE = "Введите магазин.";
+    public static final String MOBILE_PHONE_ID = "Введите id телефона.";
     public static final String CASE_6_ERR = "Ой-ей, кажется что то пошло не так, либо все юзеры приобрели телефон! \n Проверь базу данных :)";
     public static final String DEFAULT = "Введите корректную цифру.";
     public static final String ERR = "Данные введены не корректно. Попробуйте снова.";
@@ -22,5 +24,7 @@ public class Constance {
         "3 - Удаление телефона из базы по названию модели и названию компании. \n" +
         "4 - Добавление нового телефона. \n" +
         "5 - Вывод пользователей телефона одного бренда. \n" +
-        "6 - Вывод пользователей без телефона.";
+        "6 - Вывод пользователей без телефона. \n" +
+        "7 - Вывод телефонов в наличии магазина. \n" +
+        "8 - Вывод магазинов с наличием телефона.";
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -21,6 +22,7 @@ public class Main {
         ConnectionFactory connectionFactory = new ConnectionFactory(properties);
         MobilePhoneDAO mpDAO = new MobilePhoneDAO(connectionFactory);
         PhoneUserDAO puDAO = new PhoneUserDAO(connectionFactory);
+        StoreDAO sDAO = new StoreDAO(connectionFactory);
         mpDAO.createBase(createDataBase());
 
         System.out.println(MENU);
@@ -45,6 +47,12 @@ public class Main {
                 case "6":
                     outputNonePhoneUsers(puDAO);
                     break;
+                case "7":
+                    outputPhonesFromStore(mpDAO, sDAO);
+                    break;
+                case "8":
+                    outputStoreByPhone(mpDAO, sDAO);
+                    break;
                 default:
                     System.out.println(DEFAULT + "\n" + MENU);
                     break;
@@ -62,10 +70,9 @@ public class Main {
             createBaseArray = Files.readAllLines(Path.of(WAY_SQL));
         } catch (IOException e) {
             System.out.println("Проблема! Проверь файл создания базы SQL.");
-            ;
         }
         StringBuilder createBaseSB = new StringBuilder();
-        for (String string : createBaseArray) {
+        for (String string : Objects.requireNonNull(createBaseArray)) {
             createBaseSB.append(string);
         }
         return createBaseSB.toString();
@@ -133,6 +140,26 @@ public class Main {
             System.out.println(READY + "\n" + puDAO.findNoneUsers() + "\n" + MENU);
         } catch (Exception e) {
             System.out.println(CASE_6_ERR + "\n" + MENU);
+        }
+    }
+
+    private static void outputPhonesFromStore(MobilePhoneDAO mpDAO, StoreDAO sDAO) {
+        System.out.println(sDAO.findAll() + "\n" + STORE);
+        String store = scanner.next();
+        try {
+            System.out.println(READY + "\n" + mpDAO.findPhonesByStore(store) + "\n" + MENU);
+        } catch (Exception e) {
+            System.out.println(ERR + "\n" + MENU);
+        }
+    }
+
+    private static void outputStoreByPhone(MobilePhoneDAO mpDAO, StoreDAO sDAO) {
+        System.out.println(mpDAO.findAll() + "\n" + MOBILE_PHONE_ID);
+        int mobile_phone_id = scanner.nextInt();
+        try {
+            System.out.println(READY + "\n" + sDAO.findStoreByPhone(mobile_phone_id) + "\n" + MENU);
+        } catch (Exception e) {
+            System.out.println(ERR + "\n" + MENU);
         }
     }
 }

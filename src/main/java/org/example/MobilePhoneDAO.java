@@ -136,19 +136,16 @@ public class MobilePhoneDAO {
         return mobilePhone;
     }
 
-    public List<MobilePhone> findPhonesByStore(String store) {
+    public List<MobilePhone> findPhonesByStore(int storeID) {
         Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhones = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
                 String.format(
                     "SELECT  brand, model\n" +
-                        "FROM mobile_phone mp INNER JOIN mobile_store ms\n" +
-                        "ON mp.id = ms.mobile_phone_id AND store_id = (\n" +
-                        "        SELECT id\n" +
-                        "        FROM store\n" +
-                        "        WHERE name = '%s'\n" +
-                        "        );", store
+                        "FROM mobile_phone mp\n" +
+                        "INNER JOIN mobile_phone_to_store ms\n" +
+                        "ON mp.id = ms.mobile_phone_id AND store_id = '%d';", storeID
                 )
             );
             ResultSet resultSet = statement.executeQuery();

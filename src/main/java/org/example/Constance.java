@@ -4,7 +4,7 @@ public class Constance {
     public static final String WAY_PROPERTY = "src/main/resources/my.properties";
     public static final String WAY_SQL = "src/main/resources/init.sql";
     public static final String END_CHAR = "*";
-    public static final String READY = "Готово:";
+    public static final String READY = "Готово.";
     public static final String DONE = "Работа завершена.";
     public static final String MIN_PERFORMANCE = "Введите минимальную желаемую производительность.";
     public static final String MIN_PRICE = "Введите минимальную желаемую цену.";
@@ -12,7 +12,7 @@ public class Constance {
     public static final String MODEL = "Введите модель.";
     public static final String PERFORMANCE = "Введите производительность";
     public static final String PRICE = "Введите цену.";
-    public static final String STORE = "Введите магазин.";
+    public static final String STORE_ID = "Введите id магазина.";
     public static final String MOBILE_PHONE_ID = "Введите id телефона.";
     public static final String CASE_6_ERR = "Ой-ей, кажется что то пошло не так, либо все юзеры приобрели телефон! \n Проверь базу данных :)";
     public static final String DEFAULT = "Введите корректную цифру.";
@@ -26,5 +26,7 @@ public class Constance {
         "5 - Вывод пользователей телефона одного бренда. \n" +
         "6 - Вывод пользователей без телефона. \n" +
         "7 - Вывод телефонов в наличии магазина. \n" +
-        "8 - Вывод магазинов с наличием телефона.";
+        "8 - Вывод магазинов с наличием телефона. \n" +
+        "9 - Удалить телефон из магазина. \n" +
+        "10 - Добавить телефон в наличие магазина.";
 }

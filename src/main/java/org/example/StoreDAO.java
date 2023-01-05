@@ -38,15 +38,16 @@ public class StoreDAO {
         return store;
     }
 
-    public List<Store> findStoreByPhone(int mobile_phone_id) {
+    public List<Store> findStoresByPhone(int mobilePhoneID) {
         Connection connection = connectionFactory.createConnection();
         List<Store> store = new ArrayList<>();
         try {
             PreparedStatement statement = connection.prepareStatement(
                 String.format(
                     "SELECT s.id, name\n" +
-                        "FROM store s INNER JOIN mobile_store ms\n" +
-                        "ON s.id = ms.store_id AND ms.mobile_phone_id = '%d';", mobile_phone_id
+                     "FROM store s\n" +
+                     "INNER JOIN mobile_phone_to_store ms\n" +
+                     "ON s.id = ms.store_id AND ms.mobile_phone_id = '%d';", mobilePhoneID
                 )
             );
             ResultSet resultSet = statement.executeQuery();

@@ -23,6 +23,7 @@ public class Main {
         MobilePhoneDAO mpDAO = new MobilePhoneDAO(connectionFactory);
         PhoneUserDAO puDAO = new PhoneUserDAO(connectionFactory);
         StoreDAO sDAO = new StoreDAO(connectionFactory);
+        MobilePhoneToStoreDAO mpsDAO = new MobilePhoneToStoreDAO(connectionFactory);
         mpDAO.createBase(createDataBase());
 
         System.out.println(MENU);
@@ -36,7 +37,7 @@ public class Main {
                     outputPrice(mpDAO);
                     break;
                 case "3":
-                    deleteByBrandAndModel(mpDAO, puDAO);
+                    deleteByBrandAndModel(mpDAO, puDAO, mpsDAO);
                     break;
                 case "4":
                     addPhone(mpDAO);
@@ -48,10 +49,16 @@ public class Main {
                     outputNonePhoneUsers(puDAO);
                     break;
                 case "7":
-                    outputPhonesFromStore(mpDAO, sDAO);
+                    outputPhoneByStore(mpDAO, sDAO);
                     break;
                 case "8":
                     outputStoreByPhone(mpDAO, sDAO);
+                    break;
+                case "9":
+                    deleteMobilePhoneFromStore(mpDAO, mpsDAO, sDAO);
+                    break;
+                case "10":
+                    addMobilePhoneToStore(mpDAO, mpsDAO, sDAO);
                     break;
                 default:
                     System.out.println(DEFAULT + "\n" + MENU);
@@ -101,12 +108,16 @@ public class Main {
         }
     }
 
-    private static void deleteByBrandAndModel(MobilePhoneDAO mpDAO, PhoneUserDAO puDAO) {
+    private static void deleteByBrandAndModel(
+        MobilePhoneDAO mpDAO,
+        PhoneUserDAO puDAO,
+        MobilePhoneToStoreDAO mpsDAO) {
         System.out.println(mpDAO.findAll() + "\n" + BRAND);
         String brand = scanner.next();
         System.out.println(MODEL);
         String model = scanner.next();
         puDAO.setMobilePhoneIDNull(mpDAO.findIDByBrandAndModel(brand, model));
+        mpsDAO.deleteMobilePhoneFromAllStores(mpDAO.findIDByBrandAndModel(brand, model));
         mpDAO.delete(brand, model);
         System.out.println(READY + "\n" + mpDAO.findAll() + "\n" + MENU);
     }
@@ -143,11 +154,11 @@ public class Main {
         }
     }
 
-    private static void outputPhonesFromStore(MobilePhoneDAO mpDAO, StoreDAO sDAO) {
-        System.out.println(sDAO.findAll() + "\n" + STORE);
-        String store = scanner.next();
+    private static void outputPhoneByStore(MobilePhoneDAO mpDAO, StoreDAO sDAO) {
+        System.out.println(sDAO.findAll() + "\n" + STORE_ID);
+        int store_id = scanner.nextInt();
         try {
-            System.out.println(READY + "\n" + mpDAO.findPhonesByStore(store) + "\n" + MENU);
+            System.out.println(READY + "\n" + mpDAO.findPhonesByStore(store_id) + "\n" + MENU);
         } catch (Exception e) {
             System.out.println(ERR + "\n" + MENU);
         }
@@ -157,9 +168,32 @@ public class Main {
         System.out.println(mpDAO.findAll() + "\n" + MOBILE_PHONE_ID);
         int mobile_phone_id = scanner.nextInt();
         try {
-            System.out.println(READY + "\n" + sDAO.findStoreByPhone(mobile_phone_id) + "\n" + MENU);
+            System.out.println(READY + "\n" + sDAO.findStoresByPhone(mobile_phone_id) + "\n" + MENU);
         } catch (Exception e) {
             System.out.println(ERR + "\n" + MENU);
         }
+    }
+
+    private static void deleteMobilePhoneFromStore (
+        MobilePhoneDAO mpDAO,
+        MobilePhoneToStoreDAO mpsDAO,
+        StoreDAO sDAO) {
+        System.out.println(sDAO.findAll() + "\n" + STORE_ID);
+        int storeID = scanner.nextInt();
+        System.out.println(mpDAO.findAll() + "\n" + MOBILE_PHONE_ID);
+        int mobilePhoneID = scanner.nextInt();
+        mpsDAO.deleteMobilePhoneFromStore(storeID, mobilePhoneID);
+        System.out.println(READY + "\n" + MENU);
+    }
+    private static void addMobilePhoneToStore (
+        MobilePhoneDAO mpDAO,
+        MobilePhoneToStoreDAO mpsDAO,
+        StoreDAO sDAO) {
+        System.out.println(sDAO.findAll() + "\n" + STORE_ID);
+        int storeID = scanner.nextInt();
+        System.out.println(mpDAO.findAll() + "\n" + MOBILE_PHONE_ID);
+        int mobilePhoneID = scanner.nextInt();
+        mpsDAO.addMobilePhoneToStore(storeID, mobilePhoneID);
+        System.out.println(READY + "\n" + MENU);
     }
 }

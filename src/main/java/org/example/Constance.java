@@ -2,8 +2,6 @@ package org.example;
 
 public class Constance {
     public static final String WAY_PROPERTY = "src/main/resources/my.properties";
-    public static final String WAY_PROPERTY_TEST = "src/test/resources/test.properties";
-    public static final String WAY_SQL_TEST = "src/test/resources/initTest.sql";
     public static final String WAY_SQL = "src/main/resources/init.sql";
     public static final String END_CHAR = "*";
     public static final String READY = "Готово.";
@@ -19,6 +17,7 @@ public class Constance {
     public static final String CASE_6_ERR = "Ой-ей, кажется что то пошло не так, либо все юзеры приобрели телефон! \n Проверь базу данных :)";
     public static final String DEFAULT = "Введите корректную цифру.";
     public static final String ERR = "Данные введены не корректно. Попробуйте снова.";
+    public static final String ERR_CONNECTION = "Соединение не закрыто.";
     public static final String MENU = "Введите цифру: \n" +
         "* - Завершение работы.\n" +
         "1 - Вывод всех телефонов выше определенной производительности. \n" +

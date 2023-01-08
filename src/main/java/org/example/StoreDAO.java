@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoreDAO {
-    ConnectionFactory connectionFactory;
+    final ConnectionFactory connectionFactory;
 
-    public StoreDAO(ConnectionFactory connectionFactory) {
+    public StoreDAO(final ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 
@@ -18,10 +18,10 @@ public class StoreDAO {
         Connection connection = connectionFactory.createConnection();
         List<Store> store = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 "SELECT * FROM store;"
             );
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 store.add(
                     new Store(
@@ -38,11 +38,11 @@ public class StoreDAO {
         return store;
     }
 
-    public List<Store> findStoresByPhone(int mobilePhoneID) {
+    public List<Store> findStoresByPhone(final int mobilePhoneID) {
         Connection connection = connectionFactory.createConnection();
         List<Store> store = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 String.format(
                     "SELECT s.id, name\n" +
                      "FROM store s\n" +
@@ -50,7 +50,7 @@ public class StoreDAO {
                      "ON s.id = ms.store_id AND ms.mobile_phone_id = '%d';", mobilePhoneID
                 )
             );
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 store.add(
                     new Store(

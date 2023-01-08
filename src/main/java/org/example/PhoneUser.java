@@ -5,13 +5,8 @@ public class PhoneUser {
     String name;
     int mobile_phone;
 
-    public PhoneUser(int id, String name, int mobile_phone) {
+    public PhoneUser(final int id, final String name, final int mobile_phone) {
         this.id = id;
-        this.name = name;
-        this.mobile_phone = mobile_phone;
-    }
-
-    public PhoneUser(String name, int mobile_phone) {
         this.name = name;
         this.mobile_phone = mobile_phone;
     }

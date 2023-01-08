@@ -16,18 +16,25 @@ import static org.example.Main.createDataBase;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MobilePhoneDAOTest {
-    Properties properties = new Properties();
-    ConnectionFactory connectionFactory = new ConnectionFactory(properties);
-    MobilePhoneDAO mpDAO = new MobilePhoneDAO(connectionFactory);
-    PhoneUserDAO puDAO = new PhoneUserDAO(connectionFactory);
-    MobilePhoneToStoreDAO mpsDAO = new MobilePhoneToStoreDAO(connectionFactory);
-
-    @BeforeEach
-    void init() throws IOException {
-        FileInputStream in = new FileInputStream(WAY_PROPERTY_TEST);
+    Properties properties;
+    ConnectionFactory connectionFactory;
+    MobilePhoneDAO mpDAO;
+    PhoneUserDAO puDAO;
+    MobilePhoneToStoreDAO mpsDAO;
+    public MobilePhoneDAOTest() throws IOException {
+        properties = new Properties();
+        FileInputStream in = new FileInputStream("src/test/resources/test.properties");
         properties.load(in);
         in.close();
-        mpDAO.createBase(createDataBase(WAY_SQL_TEST));
+        connectionFactory = new ConnectionFactory(properties);
+        mpDAO = new MobilePhoneDAO(connectionFactory);
+        puDAO = new PhoneUserDAO(connectionFactory);
+        mpsDAO = new MobilePhoneToStoreDAO(connectionFactory);
+    }
+
+    @BeforeEach
+    void init() {
+        mpDAO.createBase(createDataBase("src/test/resources/initTest.sql"));
     }
 
     @Test

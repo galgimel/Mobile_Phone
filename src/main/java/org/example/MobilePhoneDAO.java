@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MobilePhoneDAO {
-    ConnectionFactory connectionFactory;
+    final ConnectionFactory connectionFactory;
 
-    public MobilePhoneDAO(ConnectionFactory connectionFactory) {
+    public MobilePhoneDAO(final ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
     }
 
-    public void save(MobilePhone mobilePhone) {
+    public void save(final MobilePhone mobilePhone) {
         Connection connection = connectionFactory.createConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -26,7 +26,7 @@ public class MobilePhoneDAO {
         }
     }
 
-    public void delete(String brand, String model) {
+    public void delete(final String brand, final String model) {
         Connection connection = connectionFactory.createConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -40,7 +40,7 @@ public class MobilePhoneDAO {
         }
     }
 
-    public void createBase(String createBase) {
+    public void createBase(final String createBase) {
         Connection connection = connectionFactory.createConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(createBase);
@@ -56,10 +56,10 @@ public class MobilePhoneDAO {
         Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 "SELECT * FROM mobile_phone;"
             );
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 mobilePhone.add(
@@ -80,14 +80,14 @@ public class MobilePhoneDAO {
         return mobilePhone;
     }
 
-    public List<MobilePhone> findByPrice(int price) {
+    public List<MobilePhone> findByPrice(final int price) {
         Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 String.format("SELECT * FROM mobile_phone WHERE price > %d;", price)
             );
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 mobilePhone.add(
@@ -108,14 +108,14 @@ public class MobilePhoneDAO {
         return mobilePhone;
     }
 
-    public List<MobilePhone> findByPerformance(int performance) {
+    public List<MobilePhone> findByPerformance(final int performance) {
         Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 String.format("SELECT * FROM mobile_phone WHERE performance > %d;", performance)
             );
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 mobilePhone.add(
@@ -136,11 +136,11 @@ public class MobilePhoneDAO {
         return mobilePhone;
     }
 
-    public List<MobilePhone> findPhonesByStore(int storeID) {
+    public List<MobilePhone> findPhonesByStore(final int storeID) {
         Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhones = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 String.format(
                     "SELECT  brand, model\n" +
                         "FROM mobile_phone mp\n" +
@@ -148,7 +148,7 @@ public class MobilePhoneDAO {
                         "ON mp.id = ms.mobile_phone_id AND store_id = '%d';", storeID
                 )
             );
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 mobilePhones.add(
                     new MobilePhone(
@@ -164,16 +164,16 @@ public class MobilePhoneDAO {
         }
         return mobilePhones;
     }
-    public int findIDByBrandAndModel(String brand, String model) {
+    public int findIDByBrandAndModel(final String brand, final String model) {
         Connection connection = connectionFactory.createConnection();
         int id = 0;
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 String.format("SELECT id\n" +
                     "FROM mobile_phone\n" +
                     "WHERE brand = '%s' AND model = '%s';", brand, model)
             );
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             id = resultSet.getInt("id");
         } catch (SQLException e) {

@@ -7,7 +7,7 @@ public class MobilePhone {
     int performance;
     int price;
 
-    public MobilePhone(int id, String brand, String model, int performance, int price) {
+    public MobilePhone(final int id, final String brand, final String model, final int performance, final int price) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -15,14 +15,14 @@ public class MobilePhone {
         this.price = price;
     }
 
-    public MobilePhone(String brand, String model, int performance, int price) {
+    public MobilePhone(final String brand, final String model, final int performance, final int price) {
         this.brand = brand;
         this.model = model;
         this.performance = performance;
         this.price = price;
     }
 
-    public MobilePhone(String brand, String model) {
+    public MobilePhone(final String brand, final String model) {
         this.brand = brand;
         this.model = model;
     }

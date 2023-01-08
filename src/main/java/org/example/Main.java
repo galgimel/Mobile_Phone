@@ -24,7 +24,7 @@ public class Main {
         PhoneUserDAO puDAO = new PhoneUserDAO(connectionFactory);
         StoreDAO sDAO = new StoreDAO(connectionFactory);
         MobilePhoneToStoreDAO mpsDAO = new MobilePhoneToStoreDAO(connectionFactory);
-        mpDAO.createBase(createDataBase());
+        mpDAO.createBase(createDataBase(WAY_SQL));
 
         System.out.println(MENU);
         String query = scanner.nextLine();
@@ -71,10 +71,10 @@ public class Main {
 
     static Scanner scanner = new Scanner(System.in);
 
-    private static String createDataBase() {
+    public static String createDataBase(String sqlScript) {
         List<String> createBaseArray = null;
         try {
-            createBaseArray = Files.readAllLines(Path.of(WAY_SQL));
+            createBaseArray = Files.readAllLines(Path.of(sqlScript));
         } catch (IOException e) {
             System.out.println("Проблема! Проверь файл создания базы SQL.");
         }
@@ -174,7 +174,7 @@ public class Main {
         }
     }
 
-    private static void deleteMobilePhoneFromStore (
+    private static void deleteMobilePhoneFromStore(
         MobilePhoneDAO mpDAO,
         MobilePhoneToStoreDAO mpsDAO,
         StoreDAO sDAO) {
@@ -185,7 +185,8 @@ public class Main {
         mpsDAO.deleteMobilePhoneFromStore(storeID, mobilePhoneID);
         System.out.println(READY + "\n" + MENU);
     }
-    private static void addMobilePhoneToStore (
+
+    private static void addMobilePhoneToStore(
         MobilePhoneDAO mpDAO,
         MobilePhoneToStoreDAO mpsDAO,
         StoreDAO sDAO) {

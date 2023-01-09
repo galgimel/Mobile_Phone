@@ -5,8 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import static org.example.Constance.*;
+
 public class ConnectionFactory {
-    Properties properties;
+    final Properties properties;
 
     public ConnectionFactory(Properties properties) {
         this.properties = properties;
@@ -21,17 +23,17 @@ public class ConnectionFactory {
                 properties.getProperty("user"),
                 properties.getProperty("password")
             );
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (final ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
         return connection;
     }
 
-    public void closeConnection(Connection connection) {
+    public void closeConnection(final Connection connection) {
         try {
             connection.close();
-        } catch (SQLException e) {
-            System.out.println("Соединение не закрыто.");
+        } catch (final SQLException e) {
+            System.out.println(ERR_CONNECTION);
         }
     }
 }

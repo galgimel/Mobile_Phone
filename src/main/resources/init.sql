@@ -1,5 +1,7 @@
-DROP TABLE IF EXISTS mobile_phone CASCADE;
-DROP TABLE IF EXISTS phone_user CASCADE;
+DROP TABLE IF EXISTS mobile_phone_to_store;
+DROP TABLE IF EXISTS store;
+DROP TABLE IF EXISTS phone_user;
+DROP TABLE IF EXISTS mobile_phone;
 CREATE TABLE IF NOT EXISTS mobile_phone
 (
     id          SERIAL PRIMARY KEY,
@@ -13,6 +15,18 @@ CREATE TABLE IF NOT EXISTS phone_user
     id              SERIAL PRIMARY KEY,
     name            VARCHAR(30),
     mobile_phone_id INT,
+    FOREIGN KEY (mobile_phone_id) REFERENCES mobile_phone (id)
+);
+CREATE TABLE store
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR(30)
+);
+CREATE TABLE mobile_phone_to_store
+(
+    store_id        int,
+    mobile_phone_id INT,
+    FOREIGN KEY (store_id) REFERENCES store (id),
     FOREIGN KEY (mobile_phone_id) REFERENCES mobile_phone (id)
 );
 INSERT INTO mobile_phone (brand, model, performance, price)
@@ -45,3 +59,28 @@ VALUES ('Рюрик В.Д.', 6),
        ('Хохоль Р.Ж.', 3),
        ('Гоголь Ю.А.', 15),
        ('Цветкова Д.Д.', 6);
+INSERT INTO store (name)
+VALUES ('APPLE_Store'),
+       ('SAMSUNG'),
+       ('MVideo');
+INSERT INTO mobile_phone_to_store(store_id, mobile_phone_id)
+VALUES (1, 1),
+       (1, 2),
+       (1, 3),
+       (1, 4),
+       (1, 5),
+       (2, 6),
+       (2, 7),
+       (2, 8),
+       (2, 9),
+       (2, 10),
+       (3, 11),
+       (3, 12),
+       (3, 13),
+       (3, 14),
+       (3, 15),
+       (3, 1),
+       (3, 2),
+       (3, 6),
+       (3, 7),
+       (3, 8);

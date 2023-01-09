@@ -1,14 +1,16 @@
 package org.example;
 
-public class PhoneUser {
+public class Store {
     int id;
     String name;
-    int mobile_phone;
 
-    public PhoneUser(final int id, final String name, final int mobile_phone) {
+    public Store(final int id, final String name) {
         this.id = id;
         this.name = name;
-        this.mobile_phone = mobile_phone;
+    }
+
+    public Store(final String name) {
+        this.name = name;
     }
 
     public int getId() {
@@ -27,20 +29,11 @@ public class PhoneUser {
         this.name = name;
     }
 
-    public int getMobile_phone() {
-        return mobile_phone;
-    }
-
-    public void setMobile_phone(final int mobile_phone) {
-        this.mobile_phone = mobile_phone;
-    }
-
     @Override
     public String toString() {
-        return "PhoneUser{" +
+        return "Store{" +
             "id=" + id +
             ", name='" + name + '\'' +
-            ", mobile_phone=" + mobile_phone +
             '}';
     }
 }

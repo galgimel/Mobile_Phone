@@ -12,14 +12,14 @@ public class MobilePhoneDAO {
     }
 
     public void save(final MobilePhone mobilePhone) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 String.format("INSERT INTO mobile_phone (brand, model, performance, price) VALUES ('%s', '%s', %d, %d);",
                     mobilePhone.brand, mobilePhone.model, mobilePhone.performance, mobilePhone.price)
             );
             statement.execute();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -27,13 +27,13 @@ public class MobilePhoneDAO {
     }
 
     public void delete(final String brand, final String model) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement(
+            final PreparedStatement statement = connection.prepareStatement(
                 String.format("DELETE FROM mobile_phone WHERE brand = '%s' AND model = '%s';", brand, model)
             );
             statement.execute();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -41,11 +41,11 @@ public class MobilePhoneDAO {
     }
 
     public void createBase(final String createBase) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement(createBase);
+            final PreparedStatement statement = connection.prepareStatement(createBase);
             statement.execute();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -53,7 +53,7 @@ public class MobilePhoneDAO {
     }
 
     public List<MobilePhone> findAll() {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -72,7 +72,7 @@ public class MobilePhoneDAO {
                     )
                 );
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -81,7 +81,7 @@ public class MobilePhoneDAO {
     }
 
     public List<MobilePhone> findByPrice(final int price) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -100,7 +100,7 @@ public class MobilePhoneDAO {
                     )
                 );
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -109,7 +109,7 @@ public class MobilePhoneDAO {
     }
 
     public List<MobilePhone> findByPerformance(final int performance) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhone = new ArrayList<>();
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -128,7 +128,7 @@ public class MobilePhoneDAO {
                     )
                 );
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -137,7 +137,7 @@ public class MobilePhoneDAO {
     }
 
     public List<MobilePhone> findPhonesByStore(final int storeID) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         List<MobilePhone> mobilePhones = new ArrayList<>();
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -157,7 +157,7 @@ public class MobilePhoneDAO {
                     )
                 );
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -165,7 +165,7 @@ public class MobilePhoneDAO {
         return mobilePhones;
     }
     public int findIDByBrandAndModel(final String brand, final String model) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         int id = 0;
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -176,7 +176,7 @@ public class MobilePhoneDAO {
             final ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             id = resultSet.getInt("id");
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);

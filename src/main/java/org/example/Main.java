@@ -75,7 +75,7 @@ public class Main {
         List<String> createBaseArray = null;
         try {
             createBaseArray = Files.readAllLines(Path.of(sqlScript));
-        } catch (IOException e) {
+        } catch (final IOException e) {
             System.out.println("Проблема! Проверь файл создания базы SQL.");
         }
         final StringBuilder createBaseSB = new StringBuilder();
@@ -108,7 +108,11 @@ public class Main {
         }
     }
 
-    private static void deleteByBrandAndModel(final MobilePhoneDAO mpDAO, final PhoneUserDAO puDAO, final MobilePhoneToStoreDAO mpsDAO) {
+    private static void deleteByBrandAndModel(
+        final MobilePhoneDAO mpDAO,
+        final PhoneUserDAO puDAO,
+        final MobilePhoneToStoreDAO mpsDAO
+    ) {
         System.out.println(mpDAO.findAll() + "\n" + BRAND);
         final String brand = scanner.next();
         System.out.println(MODEL);
@@ -138,7 +142,7 @@ public class Main {
         final String brand = scanner.next();
         try {
             System.out.println(READY + "\n" + puDAO.findBrandUsers(brand) + "\n" + MENU);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println(ERR + "\n" + MENU);
         }
     }
@@ -146,7 +150,7 @@ public class Main {
     private static void outputNonePhoneUsers(final PhoneUserDAO puDAO) {
         try {
             System.out.println(READY + "\n" + puDAO.findNoneUsers() + "\n" + MENU);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println(CASE_6_ERR + "\n" + MENU);
         }
     }
@@ -156,7 +160,7 @@ public class Main {
         final int store_id = scanner.nextInt();
         try {
             System.out.println(READY + "\n" + mpDAO.findPhonesByStore(store_id) + "\n" + MENU);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println(ERR + "\n" + MENU);
         }
     }
@@ -166,12 +170,16 @@ public class Main {
         final int mobile_phone_id = scanner.nextInt();
         try {
             System.out.println(READY + "\n" + sDAO.findStoresByPhone(mobile_phone_id) + "\n" + MENU);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             System.out.println(ERR + "\n" + MENU);
         }
     }
 
-    private static void deleteMobilePhoneFromStore(final MobilePhoneDAO mpDAO, final MobilePhoneToStoreDAO mpsDAO, final StoreDAO sDAO) {
+    private static void deleteMobilePhoneFromStore(
+        final MobilePhoneDAO mpDAO,
+        final MobilePhoneToStoreDAO mpsDAO,
+        final StoreDAO sDAO
+    ) {
         System.out.println(sDAO.findAll() + "\n" + STORE_ID);
         final int storeID = scanner.nextInt();
         System.out.println(mpDAO.findAll() + "\n" + MOBILE_PHONE_ID);
@@ -180,7 +188,11 @@ public class Main {
         System.out.println(READY + "\n" + MENU);
     }
 
-    private static void addMobilePhoneToStore(final MobilePhoneDAO mpDAO, final MobilePhoneToStoreDAO mpsDAO, final StoreDAO sDAO) {
+    private static void addMobilePhoneToStore(
+        final MobilePhoneDAO mpDAO,
+        final MobilePhoneToStoreDAO mpsDAO,
+        final StoreDAO sDAO
+    ) {
         System.out.println(sDAO.findAll() + "\n" + STORE_ID);
         final int storeID = scanner.nextInt();
         System.out.println(mpDAO.findAll() + "\n" + MOBILE_PHONE_ID);

@@ -15,7 +15,7 @@ public class PhoneUserDAO {
     }
 
     public List<PhoneUser> findAll() {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         List<PhoneUser> phoneUsers = new ArrayList<>();
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -32,7 +32,7 @@ public class PhoneUserDAO {
                     )
                 );
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -41,7 +41,7 @@ public class PhoneUserDAO {
     }
 
     public void setMobilePhoneIDNull(final int id){
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         try {
             final PreparedStatement statement = connection.prepareStatement(
               String.format("UPDATE phone_user\n" +
@@ -49,7 +49,7 @@ public class PhoneUserDAO {
                   "WHERE mobile_phone_id = '%d';", id)
             );
             statement.execute();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -57,7 +57,7 @@ public class PhoneUserDAO {
     }
 
     public int findBrandUsers(final String brand) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         int count = 0;
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -68,7 +68,7 @@ public class PhoneUserDAO {
             final ResultSet resultSet = statement.executeQuery();
             resultSet.next();
             count = resultSet.getInt("users");
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -77,7 +77,7 @@ public class PhoneUserDAO {
     }
 
     public int findNoneUsers() {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         int count = 0;
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -88,7 +88,7 @@ public class PhoneUserDAO {
             resultSet.next();
             count = resultSet.getInt("count");
 
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);

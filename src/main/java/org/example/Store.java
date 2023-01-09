@@ -9,7 +9,7 @@ public class Store {
         this.name = name;
     }
 
-    public Store(String name) {
+    public Store(final String name) {
         this.name = name;
     }
 
@@ -17,7 +17,7 @@ public class Store {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -25,7 +25,7 @@ public class Store {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 

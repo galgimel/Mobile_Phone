@@ -15,7 +15,7 @@ public class StoreDAO {
     }
 
     public List<Store> findAll() {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         List<Store> store = new ArrayList<>();
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -30,7 +30,7 @@ public class StoreDAO {
                     )
                 );
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -39,7 +39,7 @@ public class StoreDAO {
     }
 
     public List<Store> findStoresByPhone(final int mobilePhoneID) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         List<Store> store = new ArrayList<>();
         try {
             final PreparedStatement statement = connection.prepareStatement(
@@ -59,7 +59,7 @@ public class StoreDAO {
                     )
                 );
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);

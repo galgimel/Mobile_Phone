@@ -31,7 +31,7 @@ public class MobilePhone {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -39,7 +39,7 @@ public class MobilePhone {
         return brand;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(final String brand) {
         this.brand = brand;
     }
 
@@ -47,7 +47,7 @@ public class MobilePhone {
         return model;
     }
 
-    public void setModel(String model) {
+    public void setModel(final String model) {
         this.model = model;
     }
 
@@ -55,7 +55,7 @@ public class MobilePhone {
         return performance;
     }
 
-    public void setPerformance(int performance) {
+    public void setPerformance(final int performance) {
         this.performance = performance;
     }
 
@@ -63,7 +63,7 @@ public class MobilePhone {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(final int price) {
         this.price = price;
     }
 

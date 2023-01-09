@@ -23,7 +23,7 @@ public class ConnectionFactory {
                 properties.getProperty("user"),
                 properties.getProperty("password")
             );
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (final ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
         return connection;
@@ -32,7 +32,7 @@ public class ConnectionFactory {
     public void closeConnection(final Connection connection) {
         try {
             connection.close();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(ERR_CONNECTION);
         }
     }

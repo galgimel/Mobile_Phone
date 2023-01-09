@@ -12,7 +12,7 @@ public class MobilePhoneToStoreDAO {
     }
 
     public void deleteMobilePhoneFromAllStores(final int mobilePhoneID) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         try {
             final PreparedStatement statement = connection.prepareStatement(
                 String.format(
@@ -21,7 +21,7 @@ public class MobilePhoneToStoreDAO {
                 )
             );
             statement.execute();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -29,7 +29,7 @@ public class MobilePhoneToStoreDAO {
     }
 
     public void deleteMobilePhoneFromStore(final int storeID, final int mobilePhoneID) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         try {
             final PreparedStatement statement = connection.prepareStatement(
                 String.format(
@@ -38,7 +38,7 @@ public class MobilePhoneToStoreDAO {
                 )
             );
             statement.execute();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);
@@ -46,7 +46,7 @@ public class MobilePhoneToStoreDAO {
     }
 
     public void addMobilePhoneToStore(final int storeID, final int mobilePhoneID) {
-        Connection connection = connectionFactory.createConnection();
+        final Connection connection = connectionFactory.createConnection();
         try {
             final PreparedStatement statement = connection.prepareStatement(
                 String.format(
@@ -55,7 +55,7 @@ public class MobilePhoneToStoreDAO {
                 )
             );
             statement.execute();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             connectionFactory.closeConnection(connection);

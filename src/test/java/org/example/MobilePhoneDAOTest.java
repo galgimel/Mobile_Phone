@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.stream.Stream;
 
-import static org.example.Constance.*;
 import static org.example.Main.createDataBase;
 import static org.junit.jupiter.api.Assertions.*;
 

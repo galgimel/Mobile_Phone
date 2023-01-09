@@ -15,7 +15,7 @@ public class PhoneUser {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -23,7 +23,7 @@ public class PhoneUser {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -31,7 +31,7 @@ public class PhoneUser {
         return mobile_phone;
     }
 
-    public void setMobile_phone(int mobile_phone) {
+    public void setMobile_phone(final int mobile_phone) {
         this.mobile_phone = mobile_phone;
     }
 

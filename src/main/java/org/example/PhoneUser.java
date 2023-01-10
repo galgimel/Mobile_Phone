@@ -1,46 +1,17 @@
 package org.example;
 
+import lombok.*;
+
+@Getter
+@Setter
+@ToString(of = {"id","name","mobile_phone"})
+@AllArgsConstructor
+@RequiredArgsConstructor
+
 public class PhoneUser {
     int id;
+    @NonNull
     String name;
+    @NonNull
     int mobile_phone;
-
-    public PhoneUser(final int id, final String name, final int mobile_phone) {
-        this.id = id;
-        this.name = name;
-        this.mobile_phone = mobile_phone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(final int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public int getMobile_phone() {
-        return mobile_phone;
-    }
-
-    public void setMobile_phone(final int mobile_phone) {
-        this.mobile_phone = mobile_phone;
-    }
-
-    @Override
-    public String toString() {
-        return "PhoneUser{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", mobile_phone=" + mobile_phone +
-            '}';
-    }
 }

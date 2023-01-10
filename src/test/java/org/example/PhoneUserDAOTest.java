@@ -39,11 +39,11 @@ class PhoneUserDAOTest {
     void findAll() {
         String actual = puDAO.findAll().toString();
         String expected =
-            "[PhoneUser{id=1, name='Рюрик В.Д.', mobile_phone=2}, " +
-                "PhoneUser{id=2, name='Вовин И.Ж.', mobile_phone=0}, " +
-                "PhoneUser{id=3, name='Жириновская Р.Л.', mobile_phone=1}, " +
-                "PhoneUser{id=4, name='Гоголь Ю.А.', mobile_phone=3}, " +
-                "PhoneUser{id=5, name='Цветкова Д.Д.', mobile_phone=2}]";
+            "[PhoneUser(id=1, name=Рюрик В.Д., mobile_phone=2), " +
+                "PhoneUser(id=2, name=Вовин И.Ж., mobile_phone=0), " +
+                "PhoneUser(id=3, name=Жириновская Р.Л., mobile_phone=1), " +
+                "PhoneUser(id=4, name=Гоголь Ю.А., mobile_phone=3), " +
+                "PhoneUser(id=5, name=Цветкова Д.Д., mobile_phone=2)]";
         assertEquals(expected, actual);
     }
 
@@ -58,24 +58,20 @@ class PhoneUserDAOTest {
     private static Stream<Arguments> expectedAnswer2() {
         return Stream.of(
             Arguments.of(
-                "[PhoneUser{id=1, name='Рюрик В.Д.', mobile_phone=2}, " +
-                    "PhoneUser{id=2, name='Вовин И.Ж.', mobile_phone=0}, " +
-                    "PhoneUser{id=3, name='Жириновская Р.Л.', mobile_phone=0}, " +
-                    "PhoneUser{id=4, name='Гоголь Ю.А.', mobile_phone=3}, " +
-                    "PhoneUser{id=5, name='Цветкова Д.Д.', mobile_phone=2}]",
+                "[PhoneUser(id=1, name=Рюрик В.Д., mobile_phone=2), " +
+                    "PhoneUser(id=2, name=Вовин И.Ж., mobile_phone=0), " +
+                    "PhoneUser(id=3, name=Жириновская Р.Л., mobile_phone=0), " +
+                    "PhoneUser(id=4, name=Гоголь Ю.А., mobile_phone=3), " +
+                    "PhoneUser(id=5, name=Цветкова Д.Д., mobile_phone=2)]",
                 1),
             Arguments.of(
-                "[PhoneUser{id=1, name='Рюрик В.Д.', mobile_phone=0}, " +
-                    "PhoneUser{id=2, name='Вовин И.Ж.', mobile_phone=0}, " +
-                    "PhoneUser{id=3, name='Жириновская Р.Л.', mobile_phone=1}, " +
-                    "PhoneUser{id=4, name='Гоголь Ю.А.', mobile_phone=3}, " +
-                    "PhoneUser{id=5, name='Цветкова Д.Д.', mobile_phone=0}]",
+                "[PhoneUser(id=1, name=Рюрик В.Д., mobile_phone=0), " +
+                    "PhoneUser(id=2, name=Вовин И.Ж., mobile_phone=0), " +
+                    "PhoneUser(id=3, name=Жириновская Р.Л., mobile_phone=1), " +
+                    "PhoneUser(id=4, name=Гоголь Ю.А., mobile_phone=3), " +
+                    "PhoneUser(id=5, name=Цветкова Д.Д., mobile_phone=0)]",
                 2),
-            Arguments.of("[PhoneUser{id=1, name='Рюрик В.Д.', mobile_phone=2}, " +
-                    "PhoneUser{id=2, name='Вовин И.Ж.', mobile_phone=0}, " +
-                    "PhoneUser{id=3, name='Жириновская Р.Л.', mobile_phone=1}, " +
-                    "PhoneUser{id=4, name='Гоголь Ю.А.', mobile_phone=0}, " +
-                    "PhoneUser{id=5, name='Цветкова Д.Д.', mobile_phone=2}]",
+            Arguments.of("[PhoneUser(id=1, name=Рюрик В.Д., mobile_phone=2), PhoneUser(id=2, name=Вовин И.Ж., mobile_phone=0), PhoneUser(id=3, name=Жириновская Р.Л., mobile_phone=1), PhoneUser(id=4, name=Гоголь Ю.А., mobile_phone=0), PhoneUser(id=5, name=Цветкова Д.Д., mobile_phone=2)]",
                 3)
         );
     }

@@ -41,10 +41,10 @@ class MobilePhoneDAOTest {
         mpDAO.save(new MobilePhone("Nokia", "3190", 3, 300));
         String actual = mpDAO.findAll().toString();
         String expected =
-            "[MobilePhone{id=1, brand='iPhone', model='14PRO', performance=11, price=1500}, " +
-                "MobilePhone{id=2, brand='SAMSUNG', model='Galaxy Note21', performance=11, price=1500}, " +
-                "MobilePhone{id=3, brand='Nokia', model='5310DS', performance=2, price=150}, " +
-                "MobilePhone{id=4, brand='Nokia', model='3190', performance=3, price=300}]";
+            "[MobilePhone(id=1, brand=iPhone, model=14PRO, performance=11, price=1500), " +
+                "MobilePhone(id=2, brand=SAMSUNG, model=Galaxy Note21, performance=11, price=1500), " +
+                "MobilePhone(id=3, brand=Nokia, model=5310DS, performance=2, price=150), " +
+                "MobilePhone(id=4, brand=Nokia, model=3190, performance=3, price=300)]";
         assertEquals(expected, actual);
     }
 
@@ -55,8 +55,8 @@ class MobilePhoneDAOTest {
         mpDAO.delete("iPhone", "14PRO");
         String actual = mpDAO.findAll().toString();
         String expected =
-            "[MobilePhone{id=2, brand='SAMSUNG', model='Galaxy Note21', performance=11, price=1500}, " +
-                "MobilePhone{id=3, brand='Nokia', model='5310DS', performance=2, price=150}]";
+            "[MobilePhone(id=2, brand=SAMSUNG, model=Galaxy Note21, performance=11, price=1500), " +
+                "MobilePhone(id=3, brand=Nokia, model=5310DS, performance=2, price=150)]";
         assertEquals(expected, actual);
     }
 
@@ -64,9 +64,9 @@ class MobilePhoneDAOTest {
     void createBase() {
         String actual = mpDAO.findAll().toString();
         String expected =
-            "[MobilePhone{id=1, brand='iPhone', model='14PRO', performance=11, price=1500}, " +
-                "MobilePhone{id=2, brand='SAMSUNG', model='Galaxy Note21', performance=11, price=1500}, " +
-                "MobilePhone{id=3, brand='Nokia', model='5310DS', performance=2, price=150}]";
+            "[MobilePhone(id=1, brand=iPhone, model=14PRO, performance=11, price=1500), " +
+                "MobilePhone(id=2, brand=SAMSUNG, model=Galaxy Note21, performance=11, price=1500), " +
+                "MobilePhone(id=3, brand=Nokia, model=5310DS, performance=2, price=150)]";
         assertEquals(expected, actual);
     }
 
@@ -74,9 +74,9 @@ class MobilePhoneDAOTest {
     void findAll() {
         String actual = mpDAO.findAll().toString();
         String expected =
-            "[MobilePhone{id=1, brand='iPhone', model='14PRO', performance=11, price=1500}, " +
-                "MobilePhone{id=2, brand='SAMSUNG', model='Galaxy Note21', performance=11, price=1500}, " +
-                "MobilePhone{id=3, brand='Nokia', model='5310DS', performance=2, price=150}]";
+            "[MobilePhone(id=1, brand=iPhone, model=14PRO, performance=11, price=1500), " +
+                "MobilePhone(id=2, brand=SAMSUNG, model=Galaxy Note21, performance=11, price=1500), " +
+                "MobilePhone(id=3, brand=Nokia, model=5310DS, performance=2, price=150)]";
         assertEquals(expected, actual);
     }
 
@@ -90,13 +90,13 @@ class MobilePhoneDAOTest {
     private static Stream<Arguments> expectedAnswer5() {
         return Stream.of(
             Arguments.of(
-                "[MobilePhone{id=1, brand='iPhone', model='14PRO', performance=11, price=1500}, " +
-                    "MobilePhone{id=2, brand='SAMSUNG', model='Galaxy Note21', performance=11, price=1500}]",
+                "[MobilePhone(id=1, brand=iPhone, model=14PRO, performance=11, price=1500), " +
+                    "MobilePhone(id=2, brand=SAMSUNG, model=Galaxy Note21, performance=11, price=1500)]",
                 1400),
             Arguments.of(
-                "[MobilePhone{id=1, brand='iPhone', model='14PRO', performance=11, price=1500}, " +
-                    "MobilePhone{id=2, brand='SAMSUNG', model='Galaxy Note21', performance=11, price=1500}, " +
-                    "MobilePhone{id=3, brand='Nokia', model='5310DS', performance=2, price=150}]",
+                "[MobilePhone(id=1, brand=iPhone, model=14PRO, performance=11, price=1500), " +
+                    "MobilePhone(id=2, brand=SAMSUNG, model=Galaxy Note21, performance=11, price=1500), " +
+                    "MobilePhone(id=3, brand=Nokia, model=5310DS, performance=2, price=150)]",
                 100)
         );
     }
@@ -111,13 +111,13 @@ class MobilePhoneDAOTest {
     private static Stream<Arguments> expectedAnswer6() {
         return Stream.of(
             Arguments.of(
-                "[MobilePhone{id=1, brand='iPhone', model='14PRO', performance=11, price=1500}, " +
-                    "MobilePhone{id=2, brand='SAMSUNG', model='Galaxy Note21', performance=11, price=1500}]",
+                "[MobilePhone(id=1, brand=iPhone, model=14PRO, performance=11, price=1500), " +
+                    "MobilePhone(id=2, brand=SAMSUNG, model=Galaxy Note21, performance=11, price=1500)]",
                 10),
             Arguments.of(
-                "[MobilePhone{id=1, brand='iPhone', model='14PRO', performance=11, price=1500}, " +
-                    "MobilePhone{id=2, brand='SAMSUNG', model='Galaxy Note21', performance=11, price=1500}, " +
-                    "MobilePhone{id=3, brand='Nokia', model='5310DS', performance=2, price=150}]",
+                "[MobilePhone(id=1, brand=iPhone, model=14PRO, performance=11, price=1500), " +
+                    "MobilePhone(id=2, brand=SAMSUNG, model=Galaxy Note21, performance=11, price=1500), " +
+                    "MobilePhone(id=3, brand=Nokia, model=5310DS, performance=2, price=150)]",
                 1)
         );
     }
@@ -132,11 +132,11 @@ class MobilePhoneDAOTest {
     private static Stream<Arguments> expectedAnswer7() {
         return Stream.of(
             Arguments.of(
-                "[MobilePhone{id=0, brand='iPhone', model='14PRO', performance=0, price=0}]", 1),
+                "[MobilePhone(id=0, brand=iPhone, model=14PRO, performance=0, price=0)]", 1),
             Arguments.of(
-                "[MobilePhone{id=0, brand='SAMSUNG', model='Galaxy Note21', performance=0, price=0}]", 2),
+                "[MobilePhone(id=0, brand=SAMSUNG, model=Galaxy Note21, performance=0, price=0)]", 2),
             Arguments.of(
-                "[MobilePhone{id=0, brand='Nokia', model='5310DS', performance=0, price=0}]", 3)
+                "[MobilePhone(id=0, brand=Nokia, model=5310DS, performance=0, price=0)]", 3)
         );
     }
 

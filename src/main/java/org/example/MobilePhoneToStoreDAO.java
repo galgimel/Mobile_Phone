@@ -1,14 +1,15 @@
 package org.example;
 
-import lombok.AllArgsConstructor;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-@AllArgsConstructor
 public class MobilePhoneToStoreDAO {
     final ConnectionFactory connectionFactory;
+
+    public MobilePhoneToStoreDAO(final ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
     public void deleteMobilePhoneFromAllStores(final int mobilePhoneID) {
         final Connection connection = connectionFactory.createConnection();

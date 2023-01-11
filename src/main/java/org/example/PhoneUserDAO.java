@@ -1,7 +1,5 @@
 package org.example;
 
-import lombok.AllArgsConstructor;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,9 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 public class PhoneUserDAO {
     final ConnectionFactory connectionFactory;
+
+    public PhoneUserDAO(final ConnectionFactory connectionFactory) {
+        this.connectionFactory = connectionFactory;
+    }
 
     public List<PhoneUser> findAll() {
         final Connection connection = connectionFactory.createConnection();

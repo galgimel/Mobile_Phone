@@ -1,7 +1,5 @@
 package org.example;
 
-import lombok.AllArgsConstructor;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -9,9 +7,12 @@ import java.util.Properties;
 
 import static org.example.Constance.*;
 
-@AllArgsConstructor
 public class ConnectionFactory {
     final Properties properties;
+
+    public ConnectionFactory(Properties properties) {
+        this.properties = properties;
+    }
 
     public Connection createConnection() {
         Connection connection = null;

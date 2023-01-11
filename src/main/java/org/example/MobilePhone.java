@@ -1,80 +1,26 @@
 package org.example;
 
+import lombok.*;
+
+@Getter
+@Setter
+@ToString(of = {"id","brand","model","performance","price"})
+@AllArgsConstructor
+
 public class MobilePhone {
     int id;
     String brand;
     String model;
     int performance;
     int price;
-
-    public MobilePhone(final int id, final String brand, final String model, final int performance, final int price) {
-        this.id = id;
+    public MobilePhone(String brand, String model, int performance, int price) {
         this.brand = brand;
         this.model = model;
         this.performance = performance;
         this.price = price;
     }
-
-    public MobilePhone(final String brand, final String model, final int performance, final int price) {
+    public MobilePhone(String brand, String model) {
         this.brand = brand;
         this.model = model;
-        this.performance = performance;
-        this.price = price;
-    }
-
-    public MobilePhone(final String brand, final String model) {
-        this.brand = brand;
-        this.model = model;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(final int id) {
-        this.id = id;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(final String brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(final String model) {
-        this.model = model;
-    }
-
-    public int getPerformance() {
-        return performance;
-    }
-
-    public void setPerformance(final int performance) {
-        this.performance = performance;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(final int price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "MobilePhone{" +
-            "id=" + id +
-            ", brand='" + brand + '\'' +
-            ", model='" + model + '\'' +
-            ", performance=" + performance +
-            ", price=" + price +
-            '}';
     }
 }

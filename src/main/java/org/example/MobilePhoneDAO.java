@@ -1,15 +1,13 @@
 package org.example;
 
+import lombok.AllArgsConstructor;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@AllArgsConstructor
 public class MobilePhoneDAO {
     final ConnectionFactory connectionFactory;
-
-    public MobilePhoneDAO(final ConnectionFactory connectionFactory) {
-        this.connectionFactory = connectionFactory;
-    }
 
     public void save(final MobilePhone mobilePhone) {
         final Connection connection = connectionFactory.createConnection();

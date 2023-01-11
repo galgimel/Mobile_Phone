@@ -6,12 +6,14 @@ import lombok.*;
 @Setter
 @ToString(of = {"id","name","mobile_phone"})
 @AllArgsConstructor
-@RequiredArgsConstructor
 
 public class PhoneUser {
     int id;
-    @NonNull
     String name;
-    @NonNull
     int mobile_phone;
+
+    public PhoneUser(String name, int mobile_phone) {
+        this.name = name;
+        this.mobile_phone = mobile_phone;
+    }
 }
